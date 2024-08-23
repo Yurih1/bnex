@@ -1,0 +1,49 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: bnex #TODO: no build estava dando ao passar por env. Voltar e corrigir esse problema
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    # sleep 10 Adicionado para garantir executar apenas depois que o db subir
+    command: >
+      sh -c "
+      sleep 10 &&
+      cd product_management &&
+      python manage.py makemigrations &&
+      python manage.py migrate &&
+      python manage.py createsuperuser --noinput &&
+      python manage.py runserver 0.0.0.0:8000
+      "
+    env_file:
+      - backend/.env
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    env_file:
+      - frontend/product-frontend/.env
+    volumes:
+      - ./frontend/product-frontend:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
