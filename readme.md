@@ -1,6 +1,13 @@
 # Projeto Bnex
 
-Este projeto é CRUD utilizando Django + react e postgres.
+Projeto de integração de API com pagina web.
+
+## Tecnologias
+
+- Python com Django REST framework
+- React
+- Postgres
+- docker
 
 ## Pré-requisitos
 
@@ -41,7 +48,7 @@ DATABASE_USER=root
 DATABASE_PASSWORD=root
 DATABASE_HOST=db
 DATABASE_PORT=5432
-DJANGO_SUPERUSER_USERNAME=yuri
+DJANGO_SUPERUSER_USERNAME=yuri # paramentros para configurar um superuser
 DJANGO_SUPERUSER_EMAIL=yuri@email.com
 DJANGO_SUPERUSER_PASSWORD=root
 ```
@@ -78,7 +85,7 @@ curl --location 'localhost:8000/api-token-auth/' \
 --data-urlencode 'username=user' \
 --data-urlencode 'password=password'
 ```
-### Resposta do /api-token-auth/
+#### Resposta do /api-token-auth/
 
 ```bash
 {
@@ -98,7 +105,7 @@ curl --location 'localhost:8000/api/produtos/' \
 }'
 ```
 
-### Resposta do POST /api/produtos/
+#### Resposta do POST /api/produtos/
 
 ```bash
 {
@@ -111,7 +118,8 @@ curl --location 'localhost:8000/api/produtos/' \
 *OBS. Não é a forma ideal de documentar uma API e acima só deixei como exemplo mesmo. Acontece que ocorreu alguns erros com o drf-yasg e por questões de tempo não consegui resolve-los ainda. Com isso o projeto esta sem a adição do swagger*
 
 ### 6. Melhorias
+
 - [ ] Correção do problemas com a env no build
 - [ ] Adicionar um Swagger para documentar a API da maneira certa
 
-**Fico a disposição para melhores informações**
+**Fico a disposição para melhores informações.**
